@@ -6,7 +6,6 @@ import (
 )
 
 
-
 func Solve(arr []int) int {
 	sort.Ints(arr)
 	sum := 0
