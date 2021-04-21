@@ -3,6 +3,7 @@ package egyptian_decomposition_test
 import (
 	main "github.com/artemmarkaryan/codewars/egyptian-decomposition"
 	"log"
+	"reflect"
 	"testing"
 )
 
@@ -24,10 +25,9 @@ import (
 //	}
 //}
 
-
 func TestDecompose(t *testing.T) {
 	type Case struct {
-		in 	string
+		in  string
 		out []string
 	}
 	testCases := []Case{
@@ -36,10 +36,23 @@ func TestDecompose(t *testing.T) {
 		{"0.66", []string{"1/2", "1/7", "1/59", "1/5163", "1/53307975"}},
 		{"0", []string{}},
 		{"1", []string{"1"}},
+		{"6", []string{"6"}},
+		{"6.0", []string{"6"}},
+		{"60/10", []string{"6"}},
 		{"5/4", []string{"1", "1/4"}},
+		{"1.25", []string{"1", "1/4"}},
+		{"10/8", []string{"1", "1/4"}},
+		{"9/10", []string{"1/2", "1/3", "1/15"}},
+		{"0.9", []string{"1/2", "1/3", "1/15"}},
+
 	}
 
 	for _, tCase := range testCases {
-		log.Print(main.Decompose(tCase.in), tCase.out)
+		result := main.Decompose(tCase.in)
+		if !reflect.DeepEqual(result, tCase.out) {
+			log.Fatal(result, " != ", tCase.out)
+		} else {
+			log.Print(result, " == ", tCase.out)
+		}
 	}
 }
